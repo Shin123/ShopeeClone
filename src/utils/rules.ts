@@ -43,3 +43,25 @@ export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
         : undefined
   }
 })
+
+export const schema = yup.object({
+  email: yup
+    .string()
+    .required('Email là bắt buộc')
+    .email('Email không đúng định dạng')
+    .min(5, 'Độ tài tư 5 - 160 ký tự')
+    .max(160, 'Độ tài tư 5 - 160 ký tự'),
+  password: yup
+    .string()
+    .required('Password là bắt buộc')
+    .min(5, 'Độ dài tử 6 - 160 ký tự')
+    .max(160, 'Độ dài tử 6 - 160 ký tự'),
+  confirm_password: yup
+    .string()
+    .required('Confirm Password là bắt buộc')
+    .min(5, 'Độ dài tử 6 - 160 ký tự')
+    .max(160, 'Độ dài tử 6 - 160 ký tự')
+    .oneOf([yup.ref('password')], 'Confirm Password không khớp')
+})
+
+export type Schema = yup.InferType<typeof schema>
