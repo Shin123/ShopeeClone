@@ -32,7 +32,7 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-no-target-blank': 'warn',
-
+    '@typescript-eslint/no-explicit-any': ['off'],
     'prettier/prettier': [
       'warn',
       {
