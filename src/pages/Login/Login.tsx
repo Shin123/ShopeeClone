@@ -1,13 +1,13 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Login = () => {
+  const onSubmit = () => {}
   return (
     <div className='bg-orange'>
-      <div className='max-w-7xl mx-auto px-4'>
+      <div className='container'>
         <div className='grid grid-cols-1 lg:grid-cols-5 py-12  lg:py-32 lg-pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
-            <form className='p-10 rounded bg-white shadow-sm'>
+            <form className='p-10 rounded bg-white shadow-sm' onSubmit={onSubmit}>
               <div className='text-2xl'>Đăng nhập</div>
               <div className='mt-8'>
                 <input
@@ -28,7 +28,10 @@ const Login = () => {
                 <div className='mt-1 text-red-600 min-h-[1rem] text-sm'></div>
               </div>
               <div className='mt-3'>
-                <button className='w-full text-center py-4 px-2 uppercase bg-orange text-white text-sm hover:bg-red-600'>
+                <button
+                  type='submit'
+                  className='w-full text-center py-4 px-2 uppercase bg-orange text-white text-sm hover:bg-red-600'
+                >
                   Đăng Nhập
                 </button>
               </div>
