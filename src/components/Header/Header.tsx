@@ -27,7 +27,7 @@ const Header = () => {
             renderPopover={
               <div className='bg-white relative shadow-md rounded-sm border border-gray-200'>
                 <Link
-                  to='/'
+                  to='/profile'
                   className='block py-3 px-4 hover:bg-slate-100 bg-white hover:text-cyan-500 w-full text-left'
                 >
                   Tài khoản của tôi
@@ -73,7 +73,6 @@ const Header = () => {
           </form>
           <div className='col-span-1 justify-self-end'>
             <Popover
-              initialOpen
               renderPopover={
                 <div className='bg-white relative shadow-md rounded-sm border border-gray-200 max-w-[400px] text-sm'>
                   <div className='p-2'>
