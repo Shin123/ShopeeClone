@@ -71,7 +71,7 @@ const Header = () => {
               </button>
             </div>
           </form>
-          <div className='cols-span-1'>
+          <div className='col-span-1 justify-self-end'>
             <Popover
               initialOpen
               renderPopover={
@@ -79,16 +79,80 @@ const Header = () => {
                   <div className='p-2'>
                     <div className='text-gray-400 capitalize'>Sản phẩm mới thêm</div>
                     <div className='mt-5'>
-                      <div className='mt-4 flex '>
+                      <div className='mt-4 flex'>
                         <div className='flex-shrink-0'>
                           <img
                             src='https://down-vn.img.susercontent.com/file/75d2e755f39012a3952d507dc0ee9573_tn'
                             alt='anh'
-                            className=''
+                            className='w-11 h-11 object-cover'
                           />
                         </div>
-                        <div className='flex-grow ml-2'></div>
+                        <div className='flex-grow ml-2 overflow-hidden'>
+                          <div className='truncate'>
+                            Hạt TEB City cao cấp, grain free dành cho mèo mọi lứa tuổi - Halopetshop
+                          </div>
+                        </div>
+                        <div className='ml-2 flex-shrink-0'>
+                          <div className='text-orange'>₫270.000</div>
+                        </div>
                       </div>
+                      <div className='mt-4 flex'>
+                        <div className='flex-shrink-0'>
+                          <img
+                            src='https://down-vn.img.susercontent.com/file/75d2e755f39012a3952d507dc0ee9573_tn'
+                            alt='anh'
+                            className='w-11 h-11 object-cover'
+                          />
+                        </div>
+                        <div className='flex-grow ml-2 overflow-hidden'>
+                          <div className='truncate'>
+                            Hạt TEB City cao cấp, grain free dành cho mèo mọi lứa tuổi - Halopetshop
+                          </div>
+                        </div>
+                        <div className='ml-2 flex-shrink-0'>
+                          <div className='text-orange'>₫270.000</div>
+                        </div>
+                      </div>
+                      <div className='mt-4 flex'>
+                        <div className='flex-shrink-0'>
+                          <img
+                            src='https://down-vn.img.susercontent.com/file/75d2e755f39012a3952d507dc0ee9573_tn'
+                            alt='anh'
+                            className='w-11 h-11 object-cover'
+                          />
+                        </div>
+                        <div className='flex-grow ml-2 overflow-hidden'>
+                          <div className='truncate'>
+                            Hạt TEB City cao cấp, grain free dành cho mèo mọi lứa tuổi - Halopetshop
+                          </div>
+                        </div>
+                        <div className='ml-2 flex-shrink-0'>
+                          <div className='text-orange'>₫270.000</div>
+                        </div>
+                      </div>
+                      <div className='mt-4 flex'>
+                        <div className='flex-shrink-0'>
+                          <img
+                            src='https://down-vn.img.susercontent.com/file/75d2e755f39012a3952d507dc0ee9573_tn'
+                            alt='anh'
+                            className='w-11 h-11 object-cover'
+                          />
+                        </div>
+                        <div className='flex-grow ml-2 overflow-hidden'>
+                          <div className='truncate'>
+                            Hạt TEB City cao cấp, grain free dành cho mèo mọi lứa tuổi - Halopetshop
+                          </div>
+                        </div>
+                        <div className='ml-2 flex-shrink-0'>
+                          <div className='text-orange'>₫270.000</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className='flex mt-6 items-center justify-between'>
+                      <div className='capitalize text-xs text-gray-500'>Thêm hàng vào giỏ</div>
+                      <button className='capitalize bg-orange hover:bg-opacity-90 px-4 py-2 rounded-sm text-white'>
+                        Xem giỏ hàng
+                      </button>
                     </div>
                   </div>
                 </div>
