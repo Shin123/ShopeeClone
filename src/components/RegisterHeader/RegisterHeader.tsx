@@ -1,8 +1,9 @@
 import { Link, useMatch } from 'react-router-dom'
 import { SvgShopeeIcon } from 'src/assets/svg'
+import path from 'src/constants/path'
 
 export default function RegisterHeader() {
-  const registerMatch = useMatch('/register')
+  const registerMatch = useMatch(path.register)
   const isRegister = Boolean(registerMatch)
   return (
     <header className='py-5'>
