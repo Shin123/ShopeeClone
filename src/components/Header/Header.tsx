@@ -1,0 +1,108 @@
+import { Link } from 'react-router-dom'
+import { SvgChevronDownIcon, SvgGlobalIcon, SvgSearchIcon, SvgShopeeIcon, SvgShoppingCart } from 'src/assets/svg'
+import Popover from '../Popover'
+
+const Header = () => {
+  return (
+    <div className='pb-5 bg-[linear-gradient(-180deg,#f53d2d,#f63)] text-white'>
+      <div className='container'>
+        <div className='flex justify-end'>
+          <Popover
+            className='flex items-center py-1 hover:text-gray-300 cursor-pointer'
+            renderPopover={
+              <div className='bg-white relative shadow-md rounded-sm'>
+                <div className='flex flex-col py-2 pr-28 pl-3'>
+                  <button className='py-2 px-3 hover:text-orange'>Tiếng Việt</button>
+                  <button className='py-2 px-3 hover:text-orange'>Tiếng Anh</button>
+                </div>
+              </div>
+            }
+          >
+            <SvgGlobalIcon />
+            <span className='mx-1'>Tiếng Việt</span>
+            <SvgChevronDownIcon />
+          </Popover>
+          <Popover
+            className='flex items-center py-1 hover:text-gray-300 cursor-pointer ml-6'
+            renderPopover={
+              <div className='bg-white relative shadow-md rounded-sm border border-gray-200'>
+                <Link
+                  to='/'
+                  className='block py-3 px-4 hover:bg-slate-100 bg-white hover:text-cyan-500 w-full text-left'
+                >
+                  Tài khoản của tôi
+                </Link>
+                <Link
+                  to='/'
+                  className='block py-3 px-4 hover:bg-slate-100 bg-white hover:text-cyan-500 w-full text-left'
+                >
+                  Đơn mua
+                </Link>
+                <button className='block py-4 px-4 hover:bg-slate-100 bg-white hover:text-cyan-500 w-full text-left'>
+                  Đăng xuất
+                </button>
+              </div>
+            }
+          >
+            <div className='w-6 h-6 mr-2 flex-shrink-0'>
+              <img
+                src='https://down-vn.img.susercontent.com/file/444719ee5032cadc69705e89dc221ded_tn'
+                alt='avatar'
+                className='w-full h-full object-cover rounded-full'
+              />
+            </div>
+            <div>shin nguyen</div>
+          </Popover>
+        </div>
+        <div className='grid grid-cols-12 gap-4 mt-4 items-end'>
+          <Link to='/' className='col-span-2'>
+            <SvgShopeeIcon fill='fill-white' />
+          </Link>
+          <form className='col-span-9'>
+            <div className='bg-white rounded-sm p-1 flex'>
+              <input
+                type='text'
+                name='search'
+                placeholder='QUÀ TẶNG THỜI TRANG MỸ PHẨM'
+                className='text-black px-3 py-2 flex-grow border-none outline-none bg-transparent'
+              />
+              <button className='rounded-sm py-2 px-6 flex-shrink-0 bg-orange hover:opacity-90'>
+                <SvgSearchIcon />
+              </button>
+            </div>
+          </form>
+          <div className='cols-span-1'>
+            <Popover
+              initialOpen
+              renderPopover={
+                <div className='bg-white relative shadow-md rounded-sm border border-gray-200 max-w-[400px] text-sm'>
+                  <div className='p-2'>
+                    <div className='text-gray-400 capitalize'>Sản phẩm mới thêm</div>
+                    <div className='mt-5'>
+                      <div className='mt-4 flex '>
+                        <div className='flex-shrink-0'>
+                          <img
+                            src='https://down-vn.img.susercontent.com/file/75d2e755f39012a3952d507dc0ee9573_tn'
+                            alt='anh'
+                            className=''
+                          />
+                        </div>
+                        <div className='flex-grow ml-2'></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            >
+              <Link to='/' className=''>
+                <SvgShoppingCart />
+              </Link>
+            </Popover>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Header
