@@ -89,7 +89,7 @@ const Header = () => {
         </div>
         <div className='grid grid-cols-12 gap-4 mt-4 items-end'>
           <Link to={path.home} className='col-span-2'>
-            <SvgShopeeIcon fill='fill-white' />
+            <SvgShopeeIcon fill='h-11 w-full fill-white' />
           </Link>
           <form className='col-span-9'>
             <div className='bg-white rounded-sm p-1 flex'>
