@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { SvgChevronDownIcon, SvgGlobalIcon, SvgSearchIcon, SvgShopeeIcon, SvgShoppingCart } from 'src/assets/svg'
 import Popover from '../Popover'
 import { useMutation } from '@tanstack/react-query'
-import { logout } from 'src/apis/auth.api'
+import authApi from 'src/apis/auth.api'
 import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import path from 'src/constants/path'
@@ -10,7 +10,7 @@ import path from 'src/constants/path'
 const Header = () => {
   const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
   const logoutMutation = useMutation({
-    mutationFn: logout,
+    mutationFn: authApi.logout,
     onSuccess: () => {
       setIsAuthenticated(false)
       setProfile(null)
