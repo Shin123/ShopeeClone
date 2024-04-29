@@ -1,10 +1,12 @@
 import React from 'react'
 import classnames from 'classnames'
+import { QueryConfig } from 'src/pages/ProductList/ProductList'
+import { Link, createSearchParams } from 'react-router-dom'
+import path from 'src/constants/path'
 
 interface Props {
-  page: number
-  setPage: React.Dispatch<React.SetStateAction<number>>
   pageSize: number
+  queryConfig: QueryConfig
 }
 
 /**
@@ -29,7 +31,9 @@ with range = 2 apply for before, after and around current_page
  */
 
 const RANGE = 2
-export default function Pagination({ page, setPage, pageSize }: Props) {
+export default function Pagination({ queryConfig, pageSize }: Props) {
+  const page = Number(queryConfig.page)
+
   const renderPagination = () => {
     let dotAfter = false
     let dotBefore = false
@@ -37,9 +41,9 @@ export default function Pagination({ page, setPage, pageSize }: Props) {
       if (!dotBefore) {
         dotBefore = true
         return (
-          <button key={index} className='bg-white rounded px-3 py-2 shadow-sm mx-2 cursor-pointer border'>
+          <span key={index} className='bg-white rounded px-3 py-2 shadow-sm mx-2 border'>
             ...
-          </button>
+          </span>
         )
       }
       return null
@@ -49,9 +53,9 @@ export default function Pagination({ page, setPage, pageSize }: Props) {
       if (!dotAfter) {
         dotAfter = true
         return (
-          <button key={index} className='bg-white rounded px-3 py-2 shadow-sm mx-2 cursor-pointer border'>
+          <span key={index} className='bg-white rounded px-3 py-2 shadow-sm mx-2  border'>
             ...
-          </button>
+          </span>
         )
       }
       return null
@@ -73,24 +77,60 @@ export default function Pagination({ page, setPage, pageSize }: Props) {
           return renderDotBefore(index)
         }
         return (
-          <button
+          <Link
+            to={{
+              pathname: path.home,
+              search: createSearchParams({
+                ...queryConfig,
+                page: pageNumber.toString()
+              }).toString()
+            }}
             key={index}
             className={classnames('bg-white rounded px-3 py-2 shadow-sm mx-2 cursor-pointer border', {
               'border-cyan-500': pageNumber === page,
               'border-transparent': pageNumber != page
             })}
-            onClick={() => setPage(pageNumber)}
           >
             {pageNumber}
-          </button>
+          </Link>
         )
       })
   }
   return (
     <div className='flex flex-wrap mt-6 justify-center'>
-      <button className='bg-white rounded px-3 py-2 shadow-sm mx-2 cursor-pointer'>Prev</button>
+      {page === 1 ? (
+        <span className='bg-white/60 cursor-not-allowed rounded px-3 py-2 shadow-sm mx-2'>Prev</span>
+      ) : (
+        <Link
+          to={{
+            pathname: path.home,
+            search: createSearchParams({
+              ...queryConfig,
+              page: (page - 1).toString()
+            }).toString()
+          }}
+          className='bg-white rounded px-3 py-2 shadow-sm mx-2 cursor-pointer'
+        >
+          Prev
+        </Link>
+      )}
       {renderPagination()}
-      <button className='bg-white rounded px-3 py-2 shadow-sm mx-2 cursor-pointer'>Next</button>
+      {page === pageSize ? (
+        <span className='bg-white/60 cursor-not-allowed rounded px-3 py-2 shadow-sm mx-2'>Next</span>
+      ) : (
+        <Link
+          to={{
+            pathname: path.home,
+            search: createSearchParams({
+              ...queryConfig,
+              page: (page + 1).toString()
+            }).toString()
+          }}
+          className='bg-white rounded px-3 py-2 shadow-sm mx-2 cursor-pointer'
+        >
+          Next
+        </Link>
+      )}
     </div>
   )
 }
