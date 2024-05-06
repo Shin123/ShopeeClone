@@ -1,5 +1,4 @@
-import React from 'react'
-import { QueryConfig } from '../ProductList'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { sortBy, order as orderConstant } from 'src/constants/product'
 import classNames from 'classnames'
 import { ProductListConfig } from 'src/types/product.type'
