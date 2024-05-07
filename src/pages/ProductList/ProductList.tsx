@@ -17,7 +17,7 @@ const ProductList = () => {
     queryFn: () => {
       return productApi.getProduct(queryConfig as ProductListConfig)
     },
-    placeholderData: (previousData) => previousData
+    staleTime: 3 * 60 * 1000
   })
   const { data: categoriesData } = useQuery({
     queryKey: ['categories'],
