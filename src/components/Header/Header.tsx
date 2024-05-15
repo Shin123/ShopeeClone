@@ -1,9 +1,9 @@
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import { SvgChevronDownIcon, SvgGlobalIcon, SvgSearchIcon, SvgShopeeIcon, SvgShoppingCart } from 'src/assets/svg'
 import Popover from '../Popover'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import authApi from 'src/apis/auth.api'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import path from 'src/constants/path'
 import useQueryConfig from 'src/hooks/useQueryConfig'
@@ -23,6 +23,7 @@ const MAX_PURCHASE = 5
 
 const Header = () => {
   const queryConfig = useQueryConfig()
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
   const { register, handleSubmit } = useForm<FormData>({
@@ -34,13 +35,15 @@ const Header = () => {
     onSuccess: () => {
       setIsAuthenticated(false)
       setProfile(null)
+      queryClient.removeQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
     }
   })
   // when we swap pages by route, Header just re-render , it not unmount - mounting again
   // so query will not inactive => it not re-call ==> don't need set stale
   const { data: purchasesInCartData } = useQuery({
     queryKey: ['purchases', { status: purchasesStatus.inCart }],
-    queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart })
+    queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart }),
+    enabled: isAuthenticated
   })
 
   const purchasesInCart = purchasesInCartData?.data.data
@@ -189,9 +192,11 @@ const Header = () => {
             >
               <Link to='/' className='relative'>
                 <SvgShoppingCart />
-                <span className='absolute top-[-5px] left-[17px] rounded-full px-[9px] py-[1px] text-orange bg-white text-xs'>
-                  {purchasesInCart?.length}
-                </span>
+                {purchasesInCart && (
+                  <span className='absolute top-[-5px] left-[17px] rounded-full px-[9px] py-[1px] text-orange bg-white text-xs'>
+                    {purchasesInCart?.length}
+                  </span>
+                )}
               </Link>
             </Popover>
           </div>

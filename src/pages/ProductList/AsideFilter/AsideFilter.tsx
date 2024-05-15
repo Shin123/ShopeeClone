@@ -1,17 +1,16 @@
-import React from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import classNames from 'classnames'
+import { omit } from 'lodash'
+import { Controller, useForm } from 'react-hook-form'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import Button from 'src/components/Button'
-import path from 'src/constants/path'
-import { Category } from 'src/types/category.type'
-import classNames from 'classnames'
 import InputNumber from 'src/components/InputNumber'
-import { useForm, Controller } from 'react-hook-form'
-import { Schema, schema } from 'src/utils/rules'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { NoUndefinedField } from 'src/types/utils.type'
 import RatingStars from 'src/components/RatingStars'
-import { omit } from 'lodash'
+import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { Category } from 'src/types/category.type'
+import { NoUndefinedField } from 'src/types/utils.type'
+import { Schema, schema } from 'src/utils/rules'
 
 interface Props {
   queryConfig: QueryConfig
@@ -152,6 +151,18 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
                 )
               }}
             />
+            {/* <InputV2
+              control={control}
+              name='price_min'
+              type='number'
+              className='grow'
+              placeholder='₫ TỪ'
+              classNameError='hidden'
+              classNameInput='p-1 w-full outline-none border  border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
+              onChange={() => {
+                trigger('price_max')
+              }}
+            /> */}
 
             <div className='mx-2 mt-2 shrink-0'>-</div>
             <Controller
