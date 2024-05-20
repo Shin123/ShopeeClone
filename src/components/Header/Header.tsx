@@ -1,43 +1,23 @@
-import { Link, createSearchParams, useNavigate } from 'react-router-dom'
-import { SvgChevronDownIcon, SvgGlobalIcon, SvgSearchIcon, SvgShopeeIcon, SvgShoppingCart } from 'src/assets/svg'
-import Popover from '../Popover'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import authApi from 'src/apis/auth.api'
+import { useQuery } from '@tanstack/react-query'
 import { useContext } from 'react'
-import { AppContext } from 'src/contexts/app.context'
-import path from 'src/constants/path'
-import useQueryConfig from 'src/hooks/useQueryConfig'
-import { useForm } from 'react-hook-form'
-import { Schema, schema } from 'src/utils/rules'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { omit } from 'lodash'
-import { purchasesStatus } from 'src/constants/purchase'
+import { Link } from 'react-router-dom'
 import purchaseApi from 'src/apis/purchase.api'
 import noproduct from 'src/assets/images/no-product.png'
+import { SvgSearchIcon, SvgShopeeIcon, SvgShoppingCart } from 'src/assets/svg'
+import path from 'src/constants/path'
+import { purchasesStatus } from 'src/constants/purchase'
+import { AppContext } from 'src/contexts/app.context'
+import useSearchProducts from 'src/hooks/useSearchProducts'
 import { formatCurrency } from 'src/utils/utils'
+import NavHeader from '../NavHeader'
+import Popover from '../Popover'
 
-type FormData = Pick<Schema, 'name'>
-
-const nameSchema = schema.pick(['name'])
 const MAX_PURCHASE = 5
 
 const Header = () => {
-  const queryConfig = useQueryConfig()
-  const queryClient = useQueryClient()
-  const navigate = useNavigate()
-  const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
-  const { register, handleSubmit } = useForm<FormData>({
-    defaultValues: { name: '' },
-    resolver: yupResolver(nameSchema)
-  })
-  const logoutMutation = useMutation({
-    mutationFn: authApi.logout,
-    onSuccess: () => {
-      setIsAuthenticated(false)
-      setProfile(null)
-      queryClient.removeQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
-    }
-  })
+  const { isAuthenticated } = useContext(AppContext)
+  const { onSubmitSeach, register } = useSearchProducts()
+
   // when we swap pages by route, Header just re-render , it not unmount - mounting again
   // so query will not inactive => it not re-call ==> don't need set stale
   const { data: purchasesInCartData } = useQuery({
@@ -48,86 +28,10 @@ const Header = () => {
 
   const purchasesInCart = purchasesInCartData?.data.data
 
-  const handleLogout = () => {
-    logoutMutation.mutate()
-  }
-
-  const onSubmitSeach = handleSubmit((data) => {
-    const config = queryConfig.order
-      ? omit({ ...queryConfig, name: data.name }, ['order', 'sort_by'])
-      : { ...queryConfig, name: data.name }
-    navigate({
-      pathname: path.home,
-      search: createSearchParams(config).toString()
-    })
-  })
   return (
     <div className='pb-5 bg-[linear-gradient(-180deg,#f53d2d,#f63)] text-white'>
       <div className='container'>
-        <div className='flex justify-end'>
-          <Popover
-            className='flex items-center py-1 hover:text-white/70 cursor-pointer'
-            renderPopover={
-              <div className='bg-white relative shadow-md rounded-sm'>
-                <div className='flex flex-col py-2 pr-28 pl-3'>
-                  <button className='py-2 px-3 hover:text-orange'>Tiếng Việt</button>
-                  <button className='py-2 px-3 hover:text-orange'>Tiếng Anh</button>
-                </div>
-              </div>
-            }
-          >
-            <SvgGlobalIcon />
-            <span className='mx-1'>Tiếng Việt</span>
-            <SvgChevronDownIcon />
-          </Popover>
-          {isAuthenticated && (
-            <Popover
-              className='flex items-center py-1 hover:text-white/70 cursor-pointer ml-6'
-              renderPopover={
-                <div className='bg-white relative shadow-md rounded-sm border border-gray-200'>
-                  <Link
-                    to='/profile'
-                    className='block py-3 px-4 hover:bg-slate-100 bg-white hover:text-cyan-500 w-full text-left'
-                  >
-                    Tài khoản của tôi
-                  </Link>
-                  <Link
-                    to='/'
-                    className='block py-3 px-4 hover:bg-slate-100 bg-white hover:text-cyan-500 w-full text-left'
-                  >
-                    Đơn mua
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className='block py-4 px-4 hover:bg-slate-100 bg-white hover:text-cyan-500 w-full text-left'
-                  >
-                    Đăng xuất
-                  </button>
-                </div>
-              }
-            >
-              <div className='w-6 h-6 mr-2 flex-shrink-0'>
-                <img
-                  src='https://down-vn.img.susercontent.com/file/444719ee5032cadc69705e89dc221ded_tn'
-                  alt='avatar'
-                  className='w-full h-full object-cover rounded-full'
-                />
-              </div>
-              <div>{profile?.email}</div>
-            </Popover>
-          )}
-          {!isAuthenticated && (
-            <div className='flex items-center'>
-              <Link to={path.register} className='mx-3 capitalize hover:text-white/70'>
-                Đăng ký
-              </Link>
-              <div className='border-r-[1px] border-r-white/40 h-4' />
-              <Link to={path.login} className='mx-3 capitalize hover:text-white/70'>
-                Đăng nhập
-              </Link>
-            </div>
-          )}
-        </div>
+        <NavHeader />
         <div className='grid grid-cols-12 gap-4 mt-4 items-end'>
           <Link to={path.home} className='col-span-2'>
             <SvgShopeeIcon fill='h-11 w-full fill-white' />
