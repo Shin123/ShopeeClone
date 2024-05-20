@@ -13,8 +13,8 @@ const purchaseApi = {
     return http.get<SuccessResponse<Purchase[]>>(`${URL}`, { params })
   },
 
-  buyProducts(body: { product_id: string; buy_count: number }) {
-    return http.post<SuccessResponse<Purchase[]>>(`${URL}/buy-products`, { body })
+  buyProducts(body: { product_id: string; buy_count: number }[]) {
+    return http.post<SuccessResponse<Purchase[]>>(`${URL}/buy-products`, body)
   },
 
   updatePurchase(body: { product_id: string; buy_count: number }) {
