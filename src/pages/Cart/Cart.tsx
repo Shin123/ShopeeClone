@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { produce } from 'immer'
 import { keyBy } from 'lodash'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import purchaseApi from 'src/apis/purchase.api'
@@ -12,14 +12,10 @@ import { purchasesStatus } from 'src/constants/purchase'
 import { Purchase } from 'src/types/purchase.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import noproduct from 'src/assets/images/no-product.png'
-
-interface ExtendedPurchase extends Purchase {
-  disabled: boolean
-  checked: boolean
-}
+import { AppContext } from 'src/contexts/app.context'
 
 export default function Cart() {
-  const [extendedPurchases, setExtendedPurchases] = useState<ExtendedPurchase[]>([])
+  const { extendedPurchases, setExtendedPurchases } = useContext(AppContext)
   const { data: purchasesInCartData, refetch } = useQuery({
     queryKey: ['purchases', { status: purchasesStatus.inCart }],
     queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart })
@@ -80,7 +76,7 @@ export default function Cart() {
         }) || []
       )
     })
-  }, [purchasesInCart, chosenPurchaseIdFromLocation])
+  }, [purchasesInCart, chosenPurchaseIdFromLocation, setExtendedPurchases])
 
   useEffect(() => {
     return () => {
