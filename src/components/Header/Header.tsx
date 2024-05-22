@@ -53,7 +53,7 @@ const Header = () => {
             <Popover
               renderPopover={
                 <div className='bg-white relative shadow-md rounded-sm border border-gray-200 max-w-[400px] text-sm'>
-                  {purchasesInCart ? (
+                  {purchasesInCart && purchasesInCart.length > 0 ? (
                     <div className='p-2'>
                       <div className='text-gray-400 capitalize'>Sản phẩm mới thêm</div>
                       <div className='mt-5'>
@@ -99,7 +99,7 @@ const Header = () => {
             >
               <Link to='/' className='relative'>
                 <SvgShoppingCart />
-                {purchasesInCart && (
+                {purchasesInCart && purchasesInCart.length > 0 && (
                   <span className='absolute top-[-5px] left-[17px] rounded-full px-[9px] py-[1px] text-orange bg-white text-xs'>
                     {purchasesInCart?.length}
                   </span>
