@@ -29,22 +29,22 @@ const Header = () => {
   const purchasesInCart = purchasesInCartData?.data.data
 
   return (
-    <div className='pb-5 bg-[linear-gradient(-180deg,#f53d2d,#f63)] text-white'>
+    <div className='bg-[linear-gradient(-180deg,#f53d2d,#f63)] pb-5 text-white'>
       <div className='container'>
         <NavHeader />
-        <div className='grid grid-cols-12 gap-4 mt-4 items-end'>
+        <div className='mt-4 grid grid-cols-12 items-end gap-4'>
           <Link to={path.home} className='col-span-2'>
             <SvgShopeeIcon fill='h-11 w-full fill-white' />
           </Link>
           <form className='col-span-9' onSubmit={onSubmitSeach}>
-            <div className='bg-white rounded-sm p-1 flex'>
+            <div className='flex rounded-sm bg-white p-1'>
               <input
                 type='text'
                 placeholder='QUÀ TẶNG THỜI TRANG MỸ PHẨM'
-                className='text-black px-3 py-2 flex-grow border-none outline-none bg-transparent'
+                className='flex-grow border-none bg-transparent px-3 py-2 text-black outline-none'
                 {...register('name')}
               />
-              <button className='rounded-sm py-2 px-6 flex-shrink-0 bg-orange hover:opacity-90'>
+              <button className='flex-shrink-0 rounded-sm bg-orange px-6 py-2 hover:opacity-90'>
                 <SvgSearchIcon />
               </button>
             </div>
@@ -52,21 +52,21 @@ const Header = () => {
           <div className='col-span-1 justify-self-end'>
             <Popover
               renderPopover={
-                <div className='bg-white relative shadow-md rounded-sm border border-gray-200 max-w-[400px] text-sm'>
+                <div className='relative max-w-[400px] rounded-sm border border-gray-200 bg-white text-sm shadow-md'>
                   {purchasesInCart && purchasesInCart.length > 0 ? (
                     <div className='p-2'>
-                      <div className='text-gray-400 capitalize'>Sản phẩm mới thêm</div>
+                      <div className='capitalize text-gray-400'>Sản phẩm mới thêm</div>
                       <div className='mt-5'>
                         {purchasesInCart.slice(0, MAX_PURCHASE).map((purchase) => (
-                          <div className='mt-2 py-2 flex hover:bg-gray-100' key={purchase._id}>
+                          <div className='mt-2 flex py-2 hover:bg-gray-100' key={purchase._id}>
                             <div className='flex-shrink-0'>
                               <img
                                 src={purchase.product.image}
                                 alt={purchase.product.name}
-                                className='w-11 h-11 object-cover'
+                                className='h-11 w-11 object-cover'
                               />
                             </div>
-                            <div className='flex-grow ml-2 overflow-hidden'>
+                            <div className='ml-2 flex-grow overflow-hidden'>
                               <div className='truncate'>{purchase.product.name}</div>
                             </div>
                             <div className='ml-2 flex-shrink-0'>
@@ -75,21 +75,21 @@ const Header = () => {
                           </div>
                         ))}
                       </div>
-                      <div className='flex mt-6 items-center justify-between'>
-                        <div className='capitalize text-xs text-gray-500'>
+                      <div className='mt-6 flex items-center justify-between'>
+                        <div className='text-xs capitalize text-gray-500'>
                           {purchasesInCart.length > MAX_PURCHASE ? purchasesInCart.length - MAX_PURCHASE : ''} Thêm hàng
                           vào giỏ
                         </div>
                         <Link
                           to={path.cart}
-                          className='capitalize bg-orange hover:bg-opacity-90 px-4 py-2 rounded-sm text-white'
+                          className='rounded-sm bg-orange px-4 py-2 capitalize text-white hover:bg-opacity-90'
                         >
                           Xem giỏ hàng
                         </Link>
                       </div>
                     </div>
                   ) : (
-                    <div className='flex flex-col h-[300px] w-[300px] items-center justify-center p-2'>
+                    <div className='flex h-[300px] w-[300px] flex-col items-center justify-center p-2'>
                       <img src={noproduct} alt='no purchase' className='h-24 w-24' />
                       <div className='mt-3 capitalize'>Chưa có sản phẩm</div>
                     </div>
@@ -100,7 +100,7 @@ const Header = () => {
               <Link to='/' className='relative'>
                 <SvgShoppingCart />
                 {purchasesInCart && purchasesInCart.length > 0 && (
-                  <span className='absolute top-[-5px] left-[17px] rounded-full px-[9px] py-[1px] text-orange bg-white text-xs'>
+                  <span className='absolute left-[17px] top-[-5px] rounded-full bg-white px-[9px] py-[1px] text-xs text-orange'>
                     {purchasesInCart?.length}
                   </span>
                 )}
