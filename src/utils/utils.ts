@@ -1,4 +1,5 @@
 import { AxiosError, HttpStatusCode, isAxiosError } from 'axios'
+import userImage from 'src/assets/images/user.svg'
 
 export function isAxiosUnprocessableEntityError<FormError>(error: unknown): error is AxiosError<FormError> {
   return isAxiosError(error) && error.response?.status === HttpStatusCode.UnprocessableEntity
@@ -32,3 +33,6 @@ export const getIdFromNameId = (nameId: string) => {
   const arr = nameId.split('-i-')
   return arr[arr.length - 1]
 }
+
+export const getAvatarUrl = (avatarName?: string) =>
+  avatarName ? `${import.meta.env.VITE_BASE_URL}images/${avatarName}` : userImage

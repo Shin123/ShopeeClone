@@ -1,20 +1,19 @@
-import React from 'react'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
+import { AppContext } from 'src/contexts/app.context'
+import { getAvatarUrl } from 'src/utils/utils'
 
 export default function UserSideNav() {
+  const { profile } = useContext(AppContext)
   return (
     <div>
       <div className='flex items-center border-b border-gray-200 py-4'>
         <Link to={path.profile} className='h-12 w-12 flex-shrink-0 overflow-hidden rounded-full border border-black'>
-          <img
-            src='https://down-vn.img.susercontent.com/file/444719ee5032cadc69705e89dc221ded_tn'
-            alt='avatar'
-            className='h-full w-full object-cover'
-          />
+          <img src={getAvatarUrl(profile?.avatar)} alt='avatar' className='h-full w-full object-cover' />
         </Link>
         <div className='flex-grow pl-4'>
-          <div className='mb-1 truncate font-semibold text-gray-600'>Viet Nguyen</div>
+          <div className='mb-1 truncate font-semibold text-gray-600'>{profile?.email}</div>
           <Link to={path.profile} className='flex items-center capitalize text-gray-500'>
             <svg
               width={12}

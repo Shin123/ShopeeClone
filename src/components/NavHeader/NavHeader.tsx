@@ -1,12 +1,13 @@
-import React, { useContext } from 'react'
-import Popover from '../Popover'
-import { SvgChevronDownIcon, SvgGlobalIcon } from 'src/assets/svg'
-import { Link } from 'react-router-dom'
-import path from 'src/constants/path'
-import { AppContext } from 'src/contexts/app.context'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import authApi from 'src/apis/auth.api'
+import { SvgChevronDownIcon, SvgGlobalIcon } from 'src/assets/svg'
+import path from 'src/constants/path'
 import { purchasesStatus } from 'src/constants/purchase'
+import { AppContext } from 'src/contexts/app.context'
+import { getAvatarUrl } from 'src/utils/utils'
+import Popover from '../Popover'
 
 export default function NavHeader() {
   const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
@@ -69,11 +70,7 @@ export default function NavHeader() {
           }
         >
           <div className='mr-2 h-6 w-6 flex-shrink-0'>
-            <img
-              src='https://down-vn.img.susercontent.com/file/444719ee5032cadc69705e89dc221ded_tn'
-              alt='avatar'
-              className='h-full w-full rounded-full object-cover'
-            />
+            <img src={getAvatarUrl(profile?.avatar)} alt='avatar' className='h-full w-full rounded-full object-cover' />
           </div>
           <div>{profile?.email}</div>
         </Popover>
