@@ -1,19 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import userApi from 'src/apis/user.api'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
+import InputFile from 'src/components/InputFile'
 import InputNumber from 'src/components/InputNumber'
-import { UserSchema, userSchema } from 'src/utils/rules'
-import DateSelect from '../../components/DateSelect'
-import { toast } from 'react-toastify'
 import { AppContext } from 'src/contexts/app.context'
-import { setProfileToLS } from 'src/utils/auth'
-import { getAvatarUrl, isAxiosUnprocessableEntityError } from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
-import config from 'src/constants/config'
+import { setProfileToLS } from 'src/utils/auth'
+import { UserSchema, userSchema } from 'src/utils/rules'
+import { getAvatarUrl, isAxiosUnprocessableEntityError } from 'src/utils/utils'
+import DateSelect from '../../components/DateSelect'
 
 type FormData = Pick<UserSchema, 'name' | 'address' | 'avatar' | 'phone' | 'date_of_birth'>
 type FormDataError = Omit<FormData, 'date_of_birth'> & {
@@ -23,7 +23,6 @@ type FormDataError = Omit<FormData, 'date_of_birth'> & {
 const profileSchema = userSchema.pick(['name', 'address', 'avatar', 'phone', 'date_of_birth'])
 
 export default function Profile() {
-  const fileInputRef = useRef<HTMLInputElement>(null)
   const { setProfile } = useContext(AppContext)
   const [file, setFile] = useState<File>()
 
@@ -104,17 +103,8 @@ export default function Profile() {
     }
   })
 
-  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileFromLocal = event.target.files?.[0]
-    if (fileFromLocal && (fileFromLocal?.size >= config.maxSizeUploadAvatar || !fileFromLocal.type.includes('image'))) {
-      toast.error('Dụng lượng file tối đa 1 MB và định dạng:.JPEG, .PNG')
-    } else {
-      setFile(fileFromLocal)
-    }
-  }
-
-  const handleUpload = () => {
-    fileInputRef.current?.click()
+  const handleChangeFile = (file?: File) => {
+    setFile(file)
   }
 
   return (
@@ -204,25 +194,7 @@ export default function Profile() {
                   className='h-full w-full rounded-full object-cover'
                 />
               </div>
-              <input
-                className='hidden'
-                type='file'
-                name=''
-                id=''
-                accept='.jpg, .jpeg, .png'
-                ref={fileInputRef}
-                onChange={onFileChange}
-                onClick={(event: any) => {
-                  event.target.value = null
-                }}
-              />
-              <button
-                className='flex h-10 items-center justify-end rounded-sm border bg-white px-6 text-sm text-gray-600 shadow-sm'
-                type='button'
-                onClick={handleUpload}
-              >
-                Chọn ảnh
-              </button>
+              <InputFile onChange={handleChangeFile} />
               <div className='mt-3 text-gray-400'>
                 <div>Dụng lượng file tối đa 1 MB</div>
                 <div>Định dạng:.JPEG, .PNG</div>
