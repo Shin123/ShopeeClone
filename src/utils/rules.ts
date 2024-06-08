@@ -28,7 +28,7 @@ export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
     }
   },
   confirm_password: {
-    required: { value: true, message: 'Confirm Password là bắt buộc' },
+    required: { value: true, message: 'Nhập lại password là bắt buộc' },
     maxLength: {
       value: 160,
       message: 'Độ tài tư 6 - 160 ky tỳ'
@@ -39,7 +39,7 @@ export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
     },
     validate:
       typeof getValues === 'function'
-        ? (value) => value === getValues('password') || 'Confirm Password không khớp'
+        ? (value) => value === getValues('password') || 'Nhập lại password không khớp'
         : undefined
   }
 })
@@ -50,6 +50,15 @@ function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {
     return Number(price_min) <= Number(price_max)
   }
   return price_min !== '' || price_max !== ''
+}
+
+const handleConfirmPasswordYup = (refString: string) => {
+  return yup
+    .string()
+    .required('Nhập lại password là bắt buộc')
+    .min(5, 'Độ dài tử 6 - 160 ký tự')
+    .max(160, 'Độ dài tử 6 - 160 ký tự')
+    .oneOf([yup.ref(refString)], 'Nhập lại password không khớp')
 }
 
 export const schema = yup.object({
@@ -64,12 +73,7 @@ export const schema = yup.object({
     .required('Password là bắt buộc')
     .min(5, 'Độ dài tử 6 - 160 ký tự')
     .max(160, 'Độ dài tử 6 - 160 ký tự'),
-  confirm_password: yup
-    .string()
-    .required('Confirm Password là bắt buộc')
-    .min(5, 'Độ dài tử 6 - 160 ký tự')
-    .max(160, 'Độ dài tử 6 - 160 ký tự')
-    .oneOf([yup.ref('password')], 'Confirm Password không khớp'),
+  confirm_password: handleConfirmPasswordYup('password'),
   price_min: yup.string().defined().test({
     name: 'price-not-allowed',
     message: 'Giá không phù hợp',
@@ -91,7 +95,7 @@ export const userSchema = yup.object({
   date_of_birth: yup.date().max(new Date(), 'Hãy chọn một ngày trong quá khứ'),
   password: schema.fields['password'],
   new_password: schema.fields['password'],
-  confirm_password: schema.fields['confirm_password']
+  confirm_password: handleConfirmPasswordYup('new_password')
 })
 
 export type UserSchema = yup.InferType<typeof userSchema>
