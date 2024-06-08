@@ -1,8 +1,7 @@
-import React from 'react'
 import classnames from 'classnames'
-import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { Link, createSearchParams } from 'react-router-dom'
 import path from 'src/constants/path'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {
   pageSize: number
@@ -41,7 +40,7 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
       if (!dotBefore) {
         dotBefore = true
         return (
-          <span key={index} className='bg-white rounded px-3 py-2 shadow-sm mx-2 border'>
+          <span key={index} className='mx-2 rounded border bg-white px-3 py-2 shadow-sm'>
             ...
           </span>
         )
@@ -53,7 +52,7 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
       if (!dotAfter) {
         dotAfter = true
         return (
-          <span key={index} className='bg-white rounded px-3 py-2 shadow-sm mx-2  border'>
+          <span key={index} className='mx-2 rounded border bg-white px-3 py-2  shadow-sm'>
             ...
           </span>
         )
@@ -86,7 +85,7 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
               }).toString()
             }}
             key={index}
-            className={classnames('bg-white rounded px-3 py-2 shadow-sm mx-2 cursor-pointer border', {
+            className={classnames('mx-2 cursor-pointer rounded border bg-white px-3 py-2 shadow-sm', {
               'border-cyan-500': pageNumber === page,
               'border-transparent': pageNumber != page
             })}
@@ -97,9 +96,9 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
       })
   }
   return (
-    <div className='flex flex-wrap mt-6 justify-center'>
+    <div className='mt-6 flex flex-wrap justify-center'>
       {page === 1 ? (
-        <span className='bg-white/60 cursor-not-allowed rounded px-3 py-2 shadow-sm mx-2'>Prev</span>
+        <span className='mx-2 cursor-not-allowed rounded bg-white/60 px-3 py-2 shadow-sm'>Prev</span>
       ) : (
         <Link
           to={{
@@ -109,14 +108,14 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
               page: (page - 1).toString()
             }).toString()
           }}
-          className='bg-white rounded px-3 py-2 shadow-sm mx-2 cursor-pointer'
+          className='mx-2 cursor-pointer rounded bg-white px-3 py-2 shadow-sm'
         >
           Prev
         </Link>
       )}
       {renderPagination()}
       {page === pageSize ? (
-        <span className='bg-white/60 cursor-not-allowed rounded px-3 py-2 shadow-sm mx-2'>Next</span>
+        <span className='mx-2 cursor-not-allowed rounded bg-white/60 px-3 py-2 shadow-sm'>Next</span>
       ) : (
         <Link
           to={{
@@ -126,7 +125,7 @@ export default function Pagination({ queryConfig, pageSize }: Props) {
               page: (page + 1).toString()
             }).toString()
           }}
-          className='bg-white rounded px-3 py-2 shadow-sm mx-2 cursor-pointer'
+          className='mx-2 cursor-pointer rounded bg-white px-3 py-2 shadow-sm'
         >
           Next
         </Link>

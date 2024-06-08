@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { ProductListConfig } from 'src/types/product.type'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 
 interface Props {
   pageSize: number
@@ -47,12 +47,12 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
   }
 
   return (
-    <div className='bg-gray-300/40 py-4 px-3'>
+    <div className='bg-gray-300/40 px-3 py-4'>
       <div className='flex flex-wrap items-center justify-between gap-2'>
-        <div className='flex items-center flex-wrap gap-2'>
+        <div className='flex flex-wrap items-center gap-2'>
           <div>Sắp xếp theo</div>
           <button
-            className={classNames('h-8 px-4 capitalize text-sm text-center', {
+            className={classNames('h-8 px-4 text-center text-sm capitalize', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.view),
               'bg-white text-black hover:bg-slate-100': !isActiveSortBy(sortBy.view)
             })}
@@ -61,7 +61,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             Phổ biến
           </button>
           <button
-            className={classNames('h-8 px-4 capitalize text-sm text-center', {
+            className={classNames('h-8 px-4 text-center text-sm capitalize', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.createdAt),
               'bg-white text-black hover:bg-slate-100': !isActiveSortBy(sortBy.createdAt)
             })}
@@ -70,7 +70,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             Mới nhất
           </button>
           <button
-            className={classNames('h-8 px-4 capitalize text-sm text-center', {
+            className={classNames('h-8 px-4 text-center text-sm capitalize', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.sold),
               'bg-white text-black hover:bg-slate-100': !isActiveSortBy(sortBy.sold)
             })}
@@ -80,7 +80,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           </button>
           <select
             defaultValue=''
-            className={classNames('h-8 px-4 text-left capitalize text-sm  outline-none', {
+            className={classNames('h-8 px-4 text-left text-sm capitalize  outline-none', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.price),
               'bg-white text-black hover:bg-slate-100': !isActiveSortBy(sortBy.price)
             })}
@@ -105,14 +105,14 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
           </div>
           <div className='ml-2 flex'>
             {page === 1 ? (
-              <span className='flex justify-center items-center w-9 h-8 rounded-tl-sm rounded-bl-sm bg-white/60 hover:bg-slate-100 cursor-not-allowed'>
+              <span className='flex h-8 w-9 cursor-not-allowed items-center justify-center rounded-bl-sm rounded-tl-sm bg-white/60 hover:bg-slate-100'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-3 h-3'
+                  className='h-3 w-3'
                 >
                   <path strokeLinecap='round' strokeLinejoin='round' d='M15.75 19.5 8.25 12l7.5-7.5' />
                 </svg>
@@ -126,7 +126,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
                     page: (page - 1).toString()
                   }).toString()
                 }}
-                className='flex justify-center items-center w-9 h-8 rounded-tl-sm rounded-bl-sm bg-white hover:bg-slate-100'
+                className='flex h-8 w-9 items-center justify-center rounded-bl-sm rounded-tl-sm bg-white hover:bg-slate-100'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -134,21 +134,21 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-3 h-3'
+                  className='h-3 w-3'
                 >
                   <path strokeLinecap='round' strokeLinejoin='round' d='M15.75 19.5 8.25 12l7.5-7.5' />
                 </svg>
               </Link>
             )}
             {page === pageSize ? (
-              <span className='flex justify-center items-center w-9 h-8 rounded-tl-sm rounded-bl-sm bg-white/60 hover:bg-slate-100 cursor-not-allowed'>
+              <span className='flex h-8 w-9 cursor-not-allowed items-center justify-center rounded-bl-sm rounded-tl-sm bg-white/60 hover:bg-slate-100'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-3 h-3 '
+                  className='h-3 w-3 '
                 >
                   <path strokeLinecap='round' strokeLinejoin='round' d='m8.25 4.5 7.5 7.5-7.5 7.5' />
                 </svg>
@@ -162,7 +162,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
                     page: (page + 1).toString()
                   }).toString()
                 }}
-                className='flex justify-center items-center w-9 h-8 rounded-tl-sm rounded-bl-sm bg-white hover:bg-slate-100'
+                className='flex h-8 w-9 items-center justify-center rounded-bl-sm rounded-tl-sm bg-white hover:bg-slate-100'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -170,7 +170,7 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='w-3 h-3 '
+                  className='h-3 w-3 '
                 >
                   <path strokeLinecap='round' strokeLinejoin='round' d='m8.25 4.5 7.5 7.5-7.5 7.5' />
                 </svg>

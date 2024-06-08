@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
@@ -56,9 +56,9 @@ const Register = () => {
   return (
     <div className='bg-orange'>
       <div className='container'>
-        <div className='grid grid-cols-1 lg:grid-cols-5 py-12  lg:py-32 lg-pr-10'>
+        <div className='lg-pr-10 grid grid-cols-1 py-12  lg:grid-cols-5 lg:py-32'>
           <div className='lg:col-span-2 lg:col-start-4'>
-            <form className='p-10 rounded bg-white shadow-sm' onSubmit={onSubmit} noValidate>
+            <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit} noValidate>
               <div className='text-2xl'>Đăng ký</div>
               <Input
                 name='email'
@@ -91,7 +91,7 @@ const Register = () => {
               <div className='mt-2'>
                 <Button
                   type='submit'
-                  className='w-full py-4 px-2 uppercase bg-orange text-white text-sm hover:bg-red-600 flex justify-center items-center'
+                  className='flex w-full items-center justify-center bg-orange px-2 py-4 text-sm uppercase text-white hover:bg-red-600'
                   isLoading={registerAccountMutation.isPending}
                   disabled={registerAccountMutation.isPending}
                 >
@@ -99,9 +99,9 @@ const Register = () => {
                 </Button>
               </div>
 
-              <div className='flex items-center justify-center mt-8 '>
+              <div className='mt-8 flex items-center justify-center '>
                 <span className='text-gray-400'>Bạn đã có tài khoản?</span>
-                <Link className='text-red-400 ml-1' to='/login'>
+                <Link className='ml-1 text-red-400' to='/login'>
                   Đăng nhập
                 </Link>
               </div>
