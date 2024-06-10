@@ -37,7 +37,7 @@ const Input = ({
   }
 
   return (
-    <div className={className}>
+    <div className={'relative ' + className}>
       <input
         className={classNameInput}
         placeholder={placeholder}

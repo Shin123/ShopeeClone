@@ -74,6 +74,7 @@ const Register = () => {
                 register={register}
                 type='password'
                 className='mt-2'
+                classNameEye='absolute right-[5px] top-[12px] h-6 w-6 cursor-pointer'
                 placeholder='Password'
                 autoComplete='on'
                 errorMessage={errors.password?.message}
@@ -83,6 +84,7 @@ const Register = () => {
                 name='confirm_password'
                 register={register}
                 type='password'
+                classNameEye='absolute right-[5px] top-[12px] h-6 w-6 cursor-pointer'
                 className='mt-2'
                 placeholder='Confirm Password'
                 errorMessage={errors.confirm_password?.message}
