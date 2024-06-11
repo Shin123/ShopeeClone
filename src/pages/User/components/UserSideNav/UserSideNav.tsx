@@ -1,11 +1,13 @@
 import classNames from 'classnames'
 import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, NavLink } from 'react-router-dom'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { getAvatarUrl } from 'src/utils/utils'
 
 export default function UserSideNav() {
+  const { t } = useTranslation(['user', 'home'])
   const { profile } = useContext(AppContext)
   return (
     <div>
@@ -29,7 +31,7 @@ export default function UserSideNav() {
                 fillRule='evenodd'
               />
             </svg>
-            Sửa hồ sơ
+            {t('edit profile')}
           </Link>
         </div>
       </div>
@@ -50,7 +52,7 @@ export default function UserSideNav() {
               className='h-full w-full'
             />
           </div>
-          Tài khoản của tôi
+          {t('my account', { ns: 'home' })}
         </NavLink>
         <NavLink
           to={path.changePassword}
@@ -68,7 +70,7 @@ export default function UserSideNav() {
               className='h-full w-full'
             />
           </div>
-          Đổi mật khẩu
+          {t('change password')}
         </NavLink>
         <NavLink
           to={path.historyPurchase}
@@ -86,7 +88,7 @@ export default function UserSideNav() {
               className='h-full w-full'
             />
           </div>
-          Đơn mua
+          {t('purchase order', { ns: 'home' })}
         </NavLink>
       </div>
     </div>

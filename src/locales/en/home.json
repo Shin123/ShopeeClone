@@ -1,0 +1,30 @@
+{
+  "aside filter": {
+    "all categories": "All categories",
+    "filter search": "Filter",
+    "price range": "Price range",
+    "apply": "Apply",
+    "evaluate": "Evaluate",
+    "delete all" :"Delete all",
+    "from": "FROM",
+    "to": "TO"
+  },
+  "my account":"My account",
+  "purchase order" :"Purchase order",
+  "log out":"Log out",
+  "register": "Register",
+  "login": "Login",
+  "no have product": "No have product",
+  "new products added": "New products added",
+  "add items to cart": "Add items to cart",
+  "view cart": "View cart",
+  "sort by": "Sort by",
+  "popular": "Popular",
+  "newest": "Newest",
+  "best sales": "Best sales",
+  "price": "Price",
+  "low to high": "Low to high",
+  "high to low": "High to low",
+  "prev": "Prev",
+  "next": "Next"
+}

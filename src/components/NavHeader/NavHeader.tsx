@@ -8,8 +8,12 @@ import { purchasesStatus } from 'src/constants/purchase'
 import { AppContext } from 'src/contexts/app.context'
 import { getAvatarUrl } from 'src/utils/utils'
 import Popover from '../Popover'
+import { useTranslation } from 'react-i18next'
+import { locales } from 'src/i18n/i18n'
 
 export default function NavHeader() {
+  const { t, i18n } = useTranslation()
+  const currentLanguage = locales[i18n.language as keyof typeof locales]
   const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
   const queryClient = useQueryClient()
 
@@ -26,6 +30,10 @@ export default function NavHeader() {
     logoutMutation.mutate()
   }
 
+  const changeLanguage = (lng: 'en' | 'vi') => {
+    i18n.changeLanguage(lng)
+  }
+
   return (
     <div className='flex justify-end'>
       <Popover
@@ -33,14 +41,18 @@ export default function NavHeader() {
         renderPopover={
           <div className='relative rounded-sm bg-white shadow-md'>
             <div className='flex flex-col py-2 pl-3 pr-28'>
-              <button className='px-3 py-2 hover:text-orange'>Tiếng Việt</button>
-              <button className='px-3 py-2 hover:text-orange'>Tiếng Anh</button>
+              <button className='px-3 py-2 text-left hover:text-orange' onClick={() => changeLanguage('vi')}>
+                Tiếng Việt
+              </button>
+              <button className='px-3 py-2 text-left hover:text-orange' onClick={() => changeLanguage('en')}>
+                English
+              </button>
             </div>
           </div>
         }
       >
         <SvgGlobalIcon />
-        <span className='mx-1'>Tiếng Việt</span>
+        <span className='mx-1'>{currentLanguage}</span>
         <SvgChevronDownIcon />
       </Popover>
       {isAuthenticated && (
@@ -52,19 +64,19 @@ export default function NavHeader() {
                 to={path.profile}
                 className='block w-full bg-white px-4 py-3 text-left hover:bg-slate-100 hover:text-cyan-500'
               >
-                Tài khoản của tôi
+                {t('my account')}
               </Link>
               <Link
                 to={path.historyPurchase}
                 className='block w-full bg-white px-4 py-3 text-left hover:bg-slate-100 hover:text-cyan-500'
               >
-                Đơn mua
+                {t('purchase order')}
               </Link>
               <button
                 onClick={handleLogout}
                 className='block w-full bg-white px-4 py-4 text-left hover:bg-slate-100 hover:text-cyan-500'
               >
-                Đăng xuất
+                {t('log out')}
               </button>
             </div>
           }
@@ -78,11 +90,11 @@ export default function NavHeader() {
       {!isAuthenticated && (
         <div className='flex items-center'>
           <Link to={path.register} className='mx-3 capitalize hover:text-white/70'>
-            Đăng ký
+            {t('register')}
           </Link>
           <div className='h-4 border-r-[1px] border-r-white/40' />
           <Link to={path.login} className='mx-3 capitalize hover:text-white/70'>
-            Đăng nhập
+            {t('login')}
           </Link>
         </div>
       )}
