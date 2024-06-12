@@ -8,6 +8,7 @@ import { ProductListConfig } from 'src/types/product.type'
 import AsideFilter from './AsideFilter'
 import Product from './Product'
 import SortProductList from './SortProductList'
+import { Helmet } from 'react-helmet-async'
 
 const ProductList = () => {
   const queryParams = useQueryParams()
@@ -28,6 +29,10 @@ const ProductList = () => {
 
   return (
     <div className='bg-gray-200 py-6'>
+      <Helmet>
+        <title>Trang chủ | Shoppe clone</title>
+        <meta name='description' content='Trang chủ dự án Shoppe clone' />
+      </Helmet>
       <div className='container'>
         {productsData && (
           <div className='grid grid-cols-12 gap-6'>
@@ -36,7 +41,7 @@ const ProductList = () => {
             </div>
             <div className='col-span-9'>
               <SortProductList queryConfig={queryConfig} pageSize={productsData.data.data.pagination.page_size} />
-              <div className='mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3'>
+              <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
                 {productsData.data.data.products.map((product) => (
                   <div className='col-span-1' key={product._id}>
                     <Product product={product} />

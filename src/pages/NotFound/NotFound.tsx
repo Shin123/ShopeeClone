@@ -1,9 +1,14 @@
+import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 
 export default function NotFound() {
   return (
     <div className='flex h-screen w-full items-center justify-center bg-gray-200 px-16 md:px-0'>
+      <Helmet>
+        <title>Trang 404 | Shoppe clone</title>
+        <meta name='description' content='Trang 404 dự án Shoppe clone' />
+      </Helmet>
       <div className='flex flex-col items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-8 shadow-2xl md:px-8 lg:px-24'>
         <p className='text-6xl font-bold tracking-wider text-gray-300 md:text-7xl lg:text-9xl'>404</p>
         <p className='mt-4 text-2xl font-bold tracking-wider text-gray-500 md:text-3xl lg:text-5xl'>Page Not Found</p>

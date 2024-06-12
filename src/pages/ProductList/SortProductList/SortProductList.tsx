@@ -81,7 +81,6 @@ export default function SortProductList({ queryConfig, pageSize }: Props) {
             {t('best sales')}
           </button>
           <select
-            defaultValue=''
             className={classNames('h-8 px-4 text-left text-sm capitalize  outline-none', {
               'bg-orange text-white hover:bg-orange/80': isActiveSortBy(sortBy.price),
               'bg-white text-black hover:bg-slate-100': !isActiveSortBy(sortBy.price)
