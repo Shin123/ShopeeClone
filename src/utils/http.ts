@@ -13,7 +13,7 @@ import {
 import { isAxiosExpiredTokenError, isAxiosUnauthorizedError } from './utils'
 import { ErrorResponse } from 'src/types/utils.type'
 
-class Http {
+export class Http {
   instance: AxiosInstance
   private accessToken: string
   private refreshToken: string
@@ -28,7 +28,7 @@ class Http {
       headers: {
         'Content-Type': 'application/json',
         'expire-access-token': 60 * 60 * 24, // 1 ngay
-        'expire-refresh-token': 60 * 60 * 24 * 7 // 7 ngay
+        'expire-refresh-token': 60 * 60 * 24 * 1000 // 7 ngay
       }
     })
 
