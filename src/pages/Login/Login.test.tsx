@@ -4,6 +4,9 @@ import { BrowserRouter } from 'react-router-dom'
 import App from 'src/App'
 import path from 'src/constants/path'
 import { beforeAll, describe, expect, it } from 'vitest'
+import { userEvent } from '@testing-library/user-event'
+
+// import '@testing-library/jest-dom'
 
 expect.extend(matchers)
 
@@ -29,18 +32,14 @@ describe('Login', () => {
   it('should display error when value is invalid', async () => {
     const emailInput = screen.queryByPlaceholderText('Email') as HTMLInputElement
     const passwordInput = screen.queryByPlaceholderText('Password') as HTMLInputElement
-    const submitButton = screen.getByRole('button') as Element
+    const submitButton = screen.getByRole('button')
 
-    fireEvent.change(emailInput, {
+    fireEvent.input(emailInput, {
       target: {
         value: 'test@mail'
       }
     })
-    fireEvent.change(passwordInput, {
-      target: {
-        value: '123'
-      }
-    })
+    userEvent.type(passwordInput, '8888s')
     fireEvent.submit(submitButton)
     await waitFor(() => {
       expect(screen.findByText('Email không đúng định dạng')).toBeTruthy()

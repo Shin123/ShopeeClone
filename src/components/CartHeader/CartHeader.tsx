@@ -19,19 +19,19 @@ export default function CartHeader() {
             <Link to={path.home} className='flex flex-shrink-0 items-end'>
               <div className='flex items-end'>
                 <SvgShopeeIcon />
-                <div className='mx-4 h-6 md:h-8 w-[1px] bg-orange'></div>
+                <div className='mx-4 h-6 w-[1px] bg-orange md:h-8'></div>
                 <div className='capitalize text-orange md:text-xl'>Giỏ hàng</div>
               </div>
             </Link>
             <form className='mt-3 md:mt-0 md:w-[50%]' onSubmit={onSubmitSeach}>
-              <div className='rounded-sm flex border-2 border-orange'>
+              <div className='flex rounded-sm border-2 border-orange'>
                 <input
                   type='text'
                   placeholder='QUÀ TẶNG THỜI TRANG MỸ PHẨM'
                   className='w-full flex-grow border-none bg-transparent px-3 py-1 text-black outline-none'
                   {...register('name')}
                 />
-                <button className='rounded-sm py-2 px-8 flex-shrink-0 bg-orange hover:opacity-90'>
+                <button className='flex-shrink-0 rounded-sm bg-orange px-8 py-2 hover:opacity-90'>
                   <SvgSearchIcon />
                 </button>
               </div>
